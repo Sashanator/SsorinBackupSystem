@@ -1,0 +1,115 @@
+﻿<Window WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        x:Class="LabWork_4__REWORKED_.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:LabWork_4__REWORKED_"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="450" Background="White">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="230"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="205"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" x:Name="AddFileContainer" Height="200" Width="200">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ListBox Grid.Row="0" Grid.Column="0" x:Name="ListFiles" BorderThickness="1" BorderBrush="Black" Height="150" Width="200">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Очистить" Click="ClearList"/>
+                        <MenuItem Header="Обновить бэкап" Click="UpdateBackup"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+            <Grid Grid.Row="1" Height="40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Width="120" Height="25" Grid.Column="0" x:Name="FilePath" IsReadOnly="True" TextWrapping="Wrap" FontSize="10"/>
+                <StackPanel Width="70" Grid.Column="1" Orientation="Horizontal" Margin="5, 0, 0, 0">
+                    <Button Grid.Column="1" Click="FindFile" Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Width="32" Height="32" Margin="0, 0, 0, 0">
+                        <materialDesign:PackIcon Kind="LaptopMac" Height="16" Width="16"/>
+                    </Button>
+                    <Button Grid.Column="1" Click="AddFile" Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Width="32" Height="32" Margin="5, 0, 0, 0">
+                        <materialDesign:PackIcon Kind="Plus" Width="24" Height="24"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <Border Grid.Row="1" Grid.Column="0" x:Name="CreateBackupContainer" BorderThickness="1" BorderBrush="Black" Height="100" Width="150">
+            <Grid Height="100" Width="150">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <RadioButton Grid.Row="0" GroupName="UnionGroupAlg" x:Name="UnionAlg" Content="Единый алгоритм"/>
+                    <RadioButton Grid.Row="1" GroupName="UnionGroupAlg" x:Name="GroupAlg" Content="Раздельный алгоритм"/>
+                </Grid>
+                <Button Grid.Row="1" Click="CreateBackup" Content="Создать Backup" FontSize="13" Height="30" Width="130"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" x:Name="BackupListContainer" BorderBrush="Black" BorderThickness="1" Width="210" Height="110">
+            <ListBox x:Name="BackupList" Width="210" Height="110">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Выбрать бэкап" Click="SelectBackup"/>
+                        <MenuItem Header="Добавить точку восстановления" Click="CreateRestorePoint"/>
+                        <MenuItem Header="Добавить инкрементальную точку" Click="CreateIncRestorePoint"/>
+                        <MenuItem Header="Очистка точек">
+                            <MenuItem Header="По количеству" Click="DeletePointsByCount"/>
+                            <MenuItem Header="По дате" Click="DeletePointsByDate"/>
+                            <MenuItem Header="По размеру файлов" Click="DeletePointsBySize"/>
+                        </MenuItem>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+        </Border>
+
+        <Border VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10, 0, 0, 10" Grid.Row="0" Grid.Column="1" x:Name="CombineDeletePointsContainer" Width="175" Height="150" BorderThickness="1" BorderBrush="Black">
+            <Grid Width="175" Height="150">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Vertical" Width="175" Height="100">
+                    <StackPanel Orientation="Vertical" Width="200" Height="60">
+                        <CheckBox Height="20" Checked="CheckAlgorithmCount" x:Name="CheckBoxCount" Content="Очистка по количеству"/>
+                        <CheckBox Height="20" Checked="CheckAlgorithmDate" x:Name="CheckBoxDate" Content="Очистка по дате"/>
+                        <CheckBox Height="20" Checked="CheckAlgorithmSize" x:Name="CheckBoxSize" Content="Очистка по размеру"/>
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Width="175" Height="40">
+                        <RadioButton Height="20" x:Name="RadioAny" GroupName="DeleteAlgorithm" Content="Алгоритм IsAny"/>
+                        <RadioButton Height="20" x:Name="RadioAll" GroupName="DeleteAlgorithm" Content="Алгоритм IsAll"/>
+                    </StackPanel>
+                </StackPanel>
+                <Button Grid.Row="1" FontSize="13" Width="120" Height="30" Click="DeletePoints" Content="Очистка точек"/>
+            </Grid>
+        </Border>
+
+
+        <Button Click="CloseWindow" Grid.Column="1" Grid.Row="0" Width="32" Height="32" Style="{StaticResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top">
+            <materialDesign:PackIcon Kind="Close" Width="24" Height="24"/>
+        </Button>
+
+
+    </Grid>
+</Window>
