@@ -46,6 +46,7 @@ After starting the program, you will see a graphical interface. First, you need 
 ![Menu](https://github.com/Sashanator/SsorinBackupSystem/blob/main/SsorinBackupSystem/resources/menu.png)
 
 ##### Working process:
+IMPORTANT: Incremental points must not be left without the point from which the delta is taken. Therefore, if you had to leave more points than planned, then an appropriate warning is displayed (as you can see in the gif below).
 ![Menu](https://github.com/Sashanator/SsorinBackupSystem/blob/main/SsorinBackupSystem/resources/sample.gif)
 
 ## Author
@@ -100,6 +101,7 @@ After starting the program, you will see a graphical interface. First, you need 
 ![Menu](https://github.com/Sashanator/SsorinBackupSystem/blob/main/SsorinBackupSystem/resources/menu.png)
 
 ##### Рабочий процесс:
+ВАЖНО: Инкрементальные точки не должны остаться без точки, от которой взята дельта. Поэтому, если пришлось оставить точек больше, чем планировалось, то выводится соответствующее предупреждение (как можно видеть на гифке ниже).
 ![Menu](https://github.com/Sashanator/SsorinBackupSystem/blob/main/SsorinBackupSystem/resources/sample.gif)
 
 ## Автор
